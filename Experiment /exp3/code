@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Grading System</title>
+</head>
+
+<body>
+
+<!-- Student Details -->
+<div style="position:absolute; top:10px; right:20px; text-align:right; font-family:Arial;">
+    <b>Name:</b> Ritika Bhoyar<br>
+    <b>PRN:</b> 24070521225<br>
+    <b>Semester:</b> 5<br>
+    <b>Section:</b> D
+</div>
+
+<h2>Student Grading System</h2>
+
+<script>
+
+// Student Name
+let studentName = prompt("Enter Student Name:");
+
+// PRN Validation
+let prn = prompt("Enter 11 Digit PRN:");
+
+while (!/^\d{11}$/.test(prn)) {
+    alert("Invalid PRN! Enter exactly 11 digits.");
+    prn = prompt("Enter 11 Digit PRN:");
+}
+
+// Number of Subjects Validation
+let numSubjects = prompt("Enter Number of Subjects:");
+
+while (!/^[1-9]\d*$/.test(numSubjects)) {
+    alert("Error! Enter a valid whole number.");
+    numSubjects = prompt("Re-enter Number of Subjects:");
+}
+
+numSubjects = Number(numSubjects);
+
+let total = 0;
+let subjects = [];
+
+// Subject Details
+for (let i = 1; i <= numSubjects; i++) {
+
+    let subject = prompt("Enter Subject " + i + " Name:");
+
+    let marks = prompt("Enter Marks for " + subject + ":");
+
+    // Marks Validation
+    while (!/^\d+$/.test(marks)) {
+        alert("Error! Marks should contain numbers only.");
+        marks = prompt("Re-enter Marks for " + subject + ":");
+    }
+
+    marks = Number(marks);
+
+    while (marks < 0 || marks > 100) {
+        alert("Marks should be between 0 and 100.");
+        marks = Number(prompt("Re-enter Marks for " + subject + ":"));
+    }
+
+    subjects.push({
+        name: subject,
+        marks: marks
+    });
+
+    total += marks;
+}
+
+// Percentage
+let percentage = total / numSubjects;
+
+// Grade Calculation
+let grade;
+
+if (percentage >= 90)
+    grade = "A+";
+else if (percentage >= 80)
+    grade = "A";
+else if (percentage >= 70)
+    grade = "B";
+else if (percentage >= 60)
+    grade = "C";
+else if (percentage >= 50)
+    grade = "D";
+else
+    grade = "F";
+
+// Output
+document.write("<h2>Student Result</h2>");
+document.write("<p><b>Student Name:</b> " + studentName + "</p>");
+document.write("<p><b>PRN:</b> " + prn + "</p>");
+
+document.write("<h3>Subjects</h3>");
+
+for (let i = 0; i < subjects.length; i++) {
+    document.write("<p>" + subjects[i].name + " : " + subjects[i].marks + "</p>");
+}
+
+document.write("<hr>");
+document.write("<p><b>Total Marks:</b> " + total + "</p>");
+document.write("<p><b>Percentage:</b> " + percentage.toFixed(2) + "%</p>");
+document.write("<h3>Grade: " + grade + "</h3>");
+
+</script>
+
+</body>
+</html> 
