@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Arrays & Loops Lab</title>
+    <style>
+        :root {
+            --bg-color: #fcf9f5;
+            --card-bg: #f3eae1;
+            --primary-color: #6d4c41;
+            --secondary-color: #8d6e63;
+            --text-color: #3e2723;
+            --accent-color: #a1887f;
+            --border-color: #d7ccc8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h1, h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #fff;
+            color: var(--text-color);
+        }
+
+        input[type="text"]:focus {
+            outline: 2px solid var(--primary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        pre {
+            background: #faf6f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #d84315;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>JavaScript Arrays & Loops</h1>
+
+    <!-- Case Study Section -->
+    <div class="section">
+        <h2>Case Study: Min / Max Finder</h2>
+        <label for="arrayInput">Enter numbers (comma-separated):</label>
+        <input type="text" id="arrayInput" value="25, 10, 45, 5, 30, 15">
+        <button id="analyzeBtn" onclick="runCaseStudy()">Analyze Array</button>
+       
+        <div id="caseStudyResult" style="margin-top: 15px;">
+            <p><strong>Current Array:</strong> <span id="displayArray">[]</span></p>
+            <p><strong>Maximum Value:</strong> <span id="displayMax" class="highlight">-</span></p>
+            <p><strong>Minimum Value:</strong> <span id="displayMin" class="highlight">-</span></p>
+        </div>
+    </div>
+
+    <!-- Practical Demonstration Section -->
+    <div class="section">
+        <h2>Demonstration & Array Methods Preview</h2>
+        <button id="demoBtn" onclick="runDemonstration()">Run Methods Demo</button>
+        <pre id="consoleOutput">Click the button above to view array operations output...</pre>
+    </div>
+</div>
+
+<script>
+    // --- CASE STUDY LOGIC ---
+    function runCaseStudy() {
+        const inputVal = document.getElementById('arrayInput').value;
+       
+        // Convert input text string to array of numbers
+        const numArray = inputVal.split(',')
+                                .map(num => parseFloat(num.trim()))
+                                .filter(num => !isNaN(num));
+
+        if (numArray.length === 0) {
+            alert("Please enter a valid list of numbers separated by commas.");
+            return;
+        }
+
+        // Fixed Loop Logic (Explicitly picking the first item index [0])
+        let maxVal = numArray[0];
+        let minVal = numArray[0];
+
+        for (let i = 1; i < numArray.length; i++) {
+            if (numArray[i] > maxVal) {
+                maxVal = numArray[i];
+            }
+            if (numArray[i] < minVal) {
+                minVal = numArray[i];
+            }
+        }
+
+        // Update Interface
+        document.getElementById('displayArray').innerText = JSON.stringify(numArray);
+        document.getElementById('displayMax').innerText = maxVal;
+        document.getElementById('displayMin').innerText = minVal;
+    }
+
+    // --- PARTS A & B DEMONSTRATION LOGIC ---
+    function runDemonstration() {
+        let output = [];
+        const inputVal = document.getElementById('arrayInput').value;
+        let demoArray = inputVal.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+       
+        if (demoArray.length === 0) {
+            demoArray = [25, 10, 45, 5, 30, 15];
+        }
+
+        output.push(`[Initial Array]: [${demoArray}]\n`);
+
+        // --- Part A: Manipulations ---
+        output.push(`--- Part A: Manipulations ---`);
+       
+        demoArray.push(80);
+        output.push(`1. push(80) -> [${demoArray}]`);
+
+        let popped = demoArray.pop();
+        output.push(`2. pop() -> [${demoArray}] | Popped: ${popped}`);
+
+        let shifted = demoArray.shift();
+        output.push(`3. shift() -> [${demoArray}] | Shifted: ${shifted}`);
+
+        demoArray.unshift(99);
+        output.push(`4. unshift(99) -> [${demoArray}]`);
+
+        demoArray.splice(1, 1, 77);
+        output.push(`5. splice(1, 1, 77) [Swapped index 1] -> [${demoArray}]`);
+
+        let slicedArr = demoArray.slice(1, 4);
+        output.push(`6. slice(1, 4) -> [${slicedArr}] (Original array remains unchanged)\n`);
+
+        // --- Part B: Array Methods ---
+        output.push(`--- Part B: Array Methods ---`);
+       
+        output.push("1. forEach() iteration:");
+        demoArray.forEach((val, idx) => {
+            output.push(`   • Index ${idx}: ${val}`);
+        });
+
+        let doubled = demoArray.map(num => num * 2);
+        output.push(`2. map() [x2] -> [${doubled}]`);
+
+        let greaterThan30 = demoArray.filter(num => num > 30);
+        output.push(`3. filter() [ > 30 ] -> [${greaterThan30}]`);
+
+        let totalSum = demoArray.reduce((acc, curr) => acc + curr, 0);
+        output.push(`4. reduce() [Sum Total] -> ${totalSum}`);
+
+        document.getElementById('consoleOutput').innerText = output.join('\n');
+    }
+
+    // Auto load calculations on startup
+    window.onload = function() {
+        runCaseStudy();
+    };
+</script>
+
+</body>
+</html>
