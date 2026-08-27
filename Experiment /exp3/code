@@ -5,15 +5,6 @@
 </head>
 
 <body>
-
-<!-- Student Details -->
-<div style="position:absolute; top:10px; right:20px; text-align:right; font-family:Arial;">
-    <b>Name:</b> Ritika Bhoyar<br>
-    <b>PRN:</b> 24070521225<br>
-    <b>Semester:</b> 5<br>
-    <b>Section:</b> D
-</div>
-
 <h2>Student Grading System</h2>
 
 <script>
