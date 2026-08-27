@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+    }
+
+    .app {
+      width: min(95%, 600px);
+      padding: 24px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 8px 25px rgb(0 0 0 / 10%);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input[type="text"],
+    select {
+      padding: 11px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: white;
+      background: #2563eb;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .edit-btn {
+      background: #f59e0b;
+    }
+
+    .delete-btn {
+      background: #dc2626;
+    }
+
+    .status-filters {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .status-filters button {
+      flex: 1;
+      background: #6b7280;
+    }
+
+    .status-filters button.active {
+      background: #2563eb;
+    }
+
+    ul {
+      padding: 0;
+      margin: 20px 0 0;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    li span {
+      flex: 1;
+      word-break: break-word;
+    }
+
+    /* Completed task par ab cut nahi hoga */
+    li.completed span {
+      color: #111827;
+      text-decoration: none;
+    }
+
+    .status-label {
+      min-width: 75px;
+      color: #2563eb;
+      font-size: 0.8rem;
+    }
+
+    .completed .status-label {
+      color: #2563eb;
+    }
+
+    .empty-message {
+      justify-content: center;
+      color: #6b7280;
+    }
+
+    @media (max-width: 600px) {
+      .input-row {
+        flex-direction: column;
+      }
+
+      .status-filters {
+        flex-direction: column;
+      }
+
+      li {
+        flex-wrap: wrap;
+      }
+
+      li span {
+        min-width: 60%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <h1>To-Do List</h1>
+
+    <form id="todoForm" class="input-row">
+      <input
+        id="todoInput"
+        type="text"
+        placeholder="Enter a task..."
+        autocomplete="off"
+      />
+
+      <select id="statusInput">
+        <option value="ongoing">Ongoing</option>
+        <option value="completed">Completed</option>
+      </select>
+
+      <button id="submitButton" type="submit">Add</button>
+    </form>
+
+    <div class="status-filters">
+      <button class="filter-btn active" data-filter="all">
+        All
+      </button>
+
+      <button class="filter-btn" data-filter="ongoing">
+        Ongoing
+      </button>
+
+      <button class="filter-btn" data-filter="completed">
+        Completed
+      </button>
+    </div>
+
+    <ul id="todoList"></ul>
+  </main>
+
+  <script>
+    const todoForm = document.querySelector("#todoForm");
+    const todoInput = document.querySelector("#todoInput");
+    const statusInput = document.querySelector("#statusInput");
+    const submitButton = document.querySelector("#submitButton");
+    const todoList = document.querySelector("#todoList");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    let editingTodo = null;
+    let currentFilter = "all";
+
+    function createTodoElement(taskText, status = "ongoing") {
+      const listItem = document.createElement("li");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "complete-checkbox";
+
+      const task = document.createElement("span");
+      task.textContent = taskText;
+
+      const statusLabel = document.createElement("small");
+      statusLabel.className = "status-label";
+
+      const editButton = document.createElement("button");
+      editButton.className = "edit-btn";
+      editButton.textContent = "Edit";
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete-btn";
+      deleteButton.textContent = "Delete";
+
+      if (status === "completed") {
+        listItem.classList.add("completed");
+        checkbox.checked = true;
+        statusLabel.textContent = "Completed";
+      } else {
+        statusLabel.textContent = "Ongoing";
+      }
+
+      listItem.append(
+        checkbox,
+        task,
+        statusLabel,
+        editButton,
+        deleteButton
+      );
+
+      return listItem;
+    }
+
+    function addTodo(taskText, status) {
+      removeEmptyMessage();
+
+      const todoElement = createTodoElement(taskText, status);
+      todoList.appendChild(todoElement);
+
+      updateDisplay();
+    }
+
+    function updateTodo(todoElement, updatedText, updatedStatus) {
+      const task = todoElement.querySelector("span");
+      const checkbox = todoElement.querySelector(".complete-checkbox");
+      const statusLabel = todoElement.querySelector(".status-label");
+
+      const isCompleted = updatedStatus === "completed";
+
+      task.textContent = updatedText;
+      checkbox.checked = isCompleted;
+      statusLabel.textContent = isCompleted
+        ? "Completed"
+        : "Ongoing";
+
+      todoElement.classList.toggle("completed", isCompleted);
+    }
+
+    function removeEmptyMessage() {
+      const emptyMessage = todoList.querySelector(".empty-message");
+
+      if (emptyMessage) {
+        emptyMessage.remove();
+      }
+    }
+
+    function updateDisplay() {
+      const todos = todoList.querySelectorAll("li:not(.empty-message)");
+      let visibleTodoCount = 0;
+
+      todos.forEach((todo) => {
+        const isCompleted = todo.classList.contains("completed");
+
+        const shouldShow =
+          currentFilter === "all" ||
+          (currentFilter === "ongoing" && !isCompleted) ||
+          (currentFilter === "completed" && isCompleted);
+
+        todo.style.display = shouldShow ? "flex" : "none";
+
+        if (shouldShow) {
+          visibleTodoCount++;
+        }
+      });
+
+      let emptyMessage = todoList.querySelector(".empty-message");
+
+      if (visibleTodoCount === 0) {
+        if (!emptyMessage) {
+          emptyMessage = document.createElement("li");
+          emptyMessage.className = "empty-message";
+          todoList.appendChild(emptyMessage);
+        }
+
+        if (currentFilter === "completed") {
+          emptyMessage.textContent = "No completed tasks.";
+        } else if (currentFilter === "ongoing") {
+          emptyMessage.textContent = "No ongoing tasks.";
+        } else {
+          emptyMessage.textContent = "No tasks yet.";
+        }
+      } else if (emptyMessage) {
+        emptyMessage.remove();
+      }
+    }
+
+    todoForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const taskText = todoInput.value.trim();
+      const selectedStatus = statusInput.value;
+
+      if (!taskText) {
+        return;
+      }
+
+      if (editingTodo) {
+        updateTodo(editingTodo, taskText, selectedStatus);
+        editingTodo = null;
+        submitButton.textContent = "Add";
+      } else {
+        addTodo(taskText, selectedStatus);
+      }
+
+      todoInput.value = "";
+      statusInput.value = "ongoing";
+      todoInput.focus();
+
+      updateDisplay();
+    });
+
+    todoList.addEventListener("click", function (event) {
+      const clickedButton = event.target;
+
+      if (!clickedButton.matches("button")) {
+        return;
+      }
+
+      const todoElement = clickedButton.closest("li");
+
+      if (clickedButton.classList.contains("delete-btn")) {
+        todoElement.remove();
+
+        if (editingTodo === todoElement) {
+          editingTodo = null;
+          todoInput.value = "";
+          statusInput.value = "ongoing";
+          submitButton.textContent = "Add";
+        }
+
+        updateDisplay();
+      }
+
+      if (clickedButton.classList.contains("edit-btn")) {
+        const task = todoElement.querySelector("span");
+        const isCompleted = todoElement.classList.contains("completed");
+
+        editingTodo = todoElement;
+        todoInput.value = task.textContent;
+        statusInput.value = isCompleted
+          ? "completed"
+          : "ongoing";
+
+        submitButton.textContent = "Update";
+        todoInput.focus();
+      }
+    });
+
+    todoList.addEventListener("change", function (event) {
+      if (!event.target.classList.contains("complete-checkbox")) {
+        return;
+      }
+
+      const todoElement = event.target.closest("li");
+      const statusLabel = todoElement.querySelector(".status-label");
+      const isCompleted = event.target.checked;
+
+      todoElement.classList.toggle("completed", isCompleted);
+
+      statusLabel.textContent = isCompleted
+        ? "Completed"
+        : "Ongoing";
+
+      updateDisplay();
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        currentFilter = button.dataset.filter;
+
+        filterButtons.forEach((filterButton) => {
+          filterButton.classList.remove("active");
+        });
+
+        button.classList.add("active");
+        updateDisplay();
+      });
+    });
+
+    updateDisplay();
+  </script>
+</body>
+</html>
