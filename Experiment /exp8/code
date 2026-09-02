@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AD FITNESS GYM - Admission Form</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #777;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #080808;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        /* Header */
+
+        .header {
+            text-align: center;
+            padding: 45px 20px;
+            background: #111111;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            letter-spacing: 3px;
+        }
+
+        .header h2 {
+            color: #ff6500;
+            font-size: 18px;
+            letter-spacing: 4px;
+            margin-top: 10px;
+        }
+
+        .header p {
+            color: #999;
+            margin-top: 15px;
+        }
+
+        /* Sections */
+
+        .section {
+            padding: 35px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-title {
+            font-size: 23px;
+            margin-bottom: 25px;
+            color: #eeeeee;
+        }
+
+        .section-title span {
+            margin-right: 10px;
+        }
+
+        /* Form Grid */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 9px;
+            color: #cccccc;
+            font-size: 15px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            background: #101014;
+            color: white;
+            border: 2px solid #333;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #ff6500;
+        }
+
+        /* Validation message */
+
+        .message {
+            margin-top: 7px;
+            font-size: 13px;
+            min-height: 16px;
+        }
+
+        .success {
+            color: #00c853;
+        }
+
+        .error {
+            color: #ff3333;
+        }
+
+        /* Fitness Goals */
+
+        .goals {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .goal {
+            border: 2px solid #292929;
+            border-radius: 9px;
+            padding: 15px;
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        .goal:hover {
+            border-color: #ff6500;
+        }
+
+        .goal input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        /* Terms */
+
+        .terms {
+            padding: 30px 35px;
+        }
+
+        .terms label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terms input {
+            width: auto;
+        }
+
+        /* Button */
+
+        .submit-btn {
+            width: calc(100% - 70px);
+            margin: 0 35px 30px;
+            padding: 17px;
+            border: none;
+            border-radius: 10px;
+            background: #ff6500;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #e65b00;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .goals {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .submit-btn {
+                width: calc(100% - 50px);
+                margin-left: 25px;
+                margin-right: 25px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">💪</div>
+
+        <h1>AD FITNESS GYM</h1>
+
+        <h2>GYM ADMISSION FORM</h2>
+
+        <p>Start your fitness journey today</p>
+
+    </div>
+
+
+    <!-- PERSONAL INFORMATION -->
+
+    <div class="section">
+
+        <h2 class="section-title">
+            <span>👤</span> Personal Information
+        </h2>
+
+        <div class="form-grid">
+
+            <!-- Name -->
+
+            <div class="form-group">
+
+                <label>Full Name *</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                >
+
+                <small id="nameMsg" class="message"></small>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="form-group">
+
+                <label>Email Address *</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                >
+
+                <small id="emailMsg" class="message"></small>
+
+            </div>
+
+
+            <!-- Phone -->
+
+            <div class="form-group">
+
+                <label>Phone Number *</label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Enter phone number"
+                >
+
+                <small id="phoneMsg" class="message"></small>
+
+            </div>
+
+
+            <!-- Age -->
+
+            <div class="form-group">
+
+                <label>Age *</label>
+
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="Enter your age"
+                >
+
+                <small id="ageMsg" class="message"></small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEMBERSHIP DETAILS -->
+
+    <div class="section">
+
+        <h2 class="section-title">
+            <span>🏆</span> Membership Details
+        </h2>
+
+        <div class="form-grid">
+
+            <!-- Membership -->
+
+            <div class="form-group">
+
+                <label>Membership Plan *</label>
+
+                <select id="plan">
+
+                    <option value="">Select Membership Plan</option>
+
+                    <option value="monthly">
+                        Monthly - ₹1,500
+                    </option>
+
+                    <option value="quarterly">
+                        Quarterly - ₹4,000
+                    </option>
+
+                    <option value="yearly">
+                        Yearly - ₹12,000
+                    </option>
+
+                </select>
+
+                <small id="planMsg" class="message"></small>
+
+            </div>
+
+
+            <!-- Date -->
+
+            <div class="form-group">
+
+                <label>Preferred Start Date *</label>
+
+                <input
+                    type="date"
+                    id="startDate"
+                >
+
+                <small id="dateMsg" class="message"></small>
+
+            </div>
+
+        </div>
+
+
+        <!-- Fitness Goal -->
+
+        <div style="margin-top:25px;">
+
+            <label>Fitness Goal</label>
+
+            <div class="goals">
+
+                <label class="goal">
+                    <input
+                        type="radio"
+                        name="goal"
+                        value="Weight Loss"
+                    >
+                    Weight Loss
+                </label>
+
+                <label class="goal">
+                    <input
+                        type="radio"
+                        name="goal"
+                        value="Muscle Gain"
+                    >
+                    Muscle Gain
+                </label>
+
+                <label class="goal">
+                    <input
+                        type="radio"
+                        name="goal"
+                        value="General Fitness"
+                    >
+                    General Fitness
+                </label>
+
+                <label class="goal">
+                    <input
+                        type="radio"
+                        name="goal"
+                        value="Strength"
+                    >
+                    Strength
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCOUNT SECURITY -->
+
+    <div class="section">
+
+        <h2 class="section-title">
+            <span>🔐</span> Account Security
+        </h2>
+
+        <div class="form-grid">
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label>Create Password *</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password"
+                >
+
+                <small id="passwordMsg" class="message"></small>
+
+            </div>
+
+
+            <!-- Confirm Password -->
+
+            <div class="form-group">
+
+                <label>Confirm Password *</label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm password"
+                >
+
+                <small id="confirmMsg" class="message"></small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TERMS -->
+
+    <div class="terms">
+
+        <label>
+
+            <input
+                type="checkbox"
+                id="terms"
+            >
+
+            I agree to the gym membership terms and conditions.
+
+        </label>
+
+        <small id="termsMsg" class="message"></small>
+
+    </div>
+
+
+    <!-- SUBMIT -->
+
+    <button
+        type="button"
+        class="submit-btn"
+        id="submitBtn"
+    >
+        JOIN AD FITNESS GYM 💪
+    </button>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       EXPERIMENT 8
+       Access and Validate Form Fields Using Events
+       ===================================================== */
+
+
+    // -----------------------------------------------------
+    // DOM ELEMENT ACCESS
+    // -----------------------------------------------------
+
+    const nameInput =
+        document.getElementById("name");
+
+    const emailInput =
+        document.getElementById("email");
+
+    const phoneInput =
+        document.getElementById("phone");
+
+    const ageInput =
+        document.getElementById("age");
+
+    const planInput =
+        document.getElementById("plan");
+
+    const dateInput =
+        document.getElementById("startDate");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const confirmPasswordInput =
+        document.getElementById("confirmPassword");
+
+    const termsInput =
+        document.getElementById("terms");
+
+    const submitButton =
+        document.getElementById("submitBtn");
+
+
+    // -----------------------------------------------------
+    // NAME VALIDATION
+    // input EVENT
+    // -----------------------------------------------------
+
+    nameInput.addEventListener("input", function () {
+
+        let name = nameInput.value.trim();
+
+        if (name.length >= 3) {
+
+            showSuccess(
+                nameInput,
+                "nameMsg",
+                "✓ Looks good!"
+            );
+
+        } else {
+
+            showError(
+                nameInput,
+                "nameMsg",
+                "✗ Name must contain at least 3 characters"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // EMAIL VALIDATION
+    // input EVENT + REGULAR EXPRESSION
+    // -----------------------------------------------------
+
+    emailInput.addEventListener("input", function () {
+
+        let email = emailInput.value.trim();
+
+        const emailPattern =
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
+        if (emailPattern.test(email)) {
+
+            showSuccess(
+                emailInput,
+                "emailMsg",
+                "✓ Valid email address"
+            );
+
+        } else {
+
+            showError(
+                emailInput,
+                "emailMsg",
+                "✗ Enter a valid email address"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // PHONE VALIDATION
+    // input EVENT + REGULAR EXPRESSION
+    // -----------------------------------------------------
+
+    phoneInput.addEventListener("input", function () {
+
+        let phone = phoneInput.value.trim();
+
+        /*
+           Accepts 10 to 12 digit phone numbers.
+           This also accepts the number used in your form.
+        */
+
+        const phonePattern =
+            /^[0-9]{10,12}$/;
+
+
+        if (phonePattern.test(phone)) {
+
+            showSuccess(
+                phoneInput,
+                "phoneMsg",
+                "✓ Valid phone number"
+            );
+
+        } else {
+
+            showError(
+                phoneInput,
+                "phoneMsg",
+                "✗ Enter a valid phone number"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // AGE VALIDATION
+    // blur EVENT
+    // -----------------------------------------------------
+
+    ageInput.addEventListener("blur", function () {
+
+        let age = Number(ageInput.value);
+
+        if (age >= 16 && age <= 100) {
+
+            showSuccess(
+                ageInput,
+                "ageMsg",
+                "✓ Valid age"
+            );
+
+        } else {
+
+            showError(
+                ageInput,
+                "ageMsg",
+                "✗ Age must be between 16 and 100"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // MEMBERSHIP PLAN
+    // change EVENT
+    // -----------------------------------------------------
+
+    planInput.addEventListener("change", function () {
+
+        if (planInput.value !== "") {
+
+            showSuccess(
+                planInput,
+                "planMsg",
+                "✓ Plan selected"
+            );
+
+        } else {
+
+            showError(
+                planInput,
+                "planMsg",
+                "✗ Please select a membership plan"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // DATE VALIDATION
+    // change EVENT
+    // -----------------------------------------------------
+
+    dateInput.addEventListener("change", function () {
+
+        if (dateInput.value !== "") {
+
+            showSuccess(
+                dateInput,
+                "dateMsg",
+                "✓ Valid start date"
+            );
+
+        } else {
+
+            showError(
+                dateInput,
+                "dateMsg",
+                "✗ Please select a start date"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // PASSWORD VALIDATION
+    // input EVENT
+    // -----------------------------------------------------
+
+    passwordInput.addEventListener("input", function () {
+
+        let password =
+            passwordInput.value;
+
+
+        if (password.length >= 8) {
+
+            showSuccess(
+                passwordInput,
+                "passwordMsg",
+                "✓ Strong password"
+            );
+
+        } else {
+
+            showError(
+                passwordInput,
+                "passwordMsg",
+                "✗ Password must contain at least 8 characters"
+            );
+
+        }
+
+    });
+
+
+    // -----------------------------------------------------
+    // CONFIRM PASSWORD
+    // input EVENT
+    // -----------------------------------------------------
+
+    confirmPasswordInput.addEventListener(
+        "input",
+        function () {
+
+            if (
+                confirmPasswordInput.value !== "" &&
+                confirmPasswordInput.value ===
+                passwordInput.value
+            ) {
+
+                showSuccess(
+                    confirmPasswordInput,
+                    "confirmMsg",
+                    "✓ Passwords match"
+                );
+
+            } else {
+
+                showError(
+                    confirmPasswordInput,
+                    "confirmMsg",
+                    "✗ Passwords do not match"
+                );
+
+            }
+
+        }
+    );
+
+
+    // -----------------------------------------------------
+    // TERMS CHECKBOX
+    // change EVENT
+    // -----------------------------------------------------
+
+    termsInput.addEventListener(
+        "change",
+        function () {
+
+            if (termsInput.checked) {
+
+                showSuccess(
+                    termsInput,
+                    "termsMsg",
+                    "✓ Terms accepted"
+                );
+
+            } else {
+
+                showError(
+                    termsInput,
+                    "termsMsg",
+                    "✗ Please accept the terms"
+                );
+
+            }
+
+        }
+    );
+
+
+    // -----------------------------------------------------
+    // SUBMIT EVENT
+    // -----------------------------------------------------
+
+    submitButton.addEventListener(
+        "click",
+        function () {
+
+            let valid = true;
+
+
+            // NAME
+
+            if (nameInput.value.trim().length < 3) {
+
+                showError(
+                    nameInput,
+                    "nameMsg",
+                    "✗ Enter your full name"
+                );
+
+                valid = false;
+            }
+
+
+            // EMAIL
+
+            const emailPattern =
+                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (
+                !emailPattern.test(
+                    emailInput.value.trim()
+                )
+            ) {
+
+                showError(
+                    emailInput,
+                    "emailMsg",
+                    "✗ Enter a valid email address"
+                );
+
+                valid = false;
+            }
+
+
+            // PHONE
+
+            const phonePattern =
+                /^[0-9]{10,12}$/;
+
+            if (
+                !phonePattern.test(
+                    phoneInput.value.trim()
+                )
+            ) {
+
+                showError(
+                    phoneInput,
+                    "phoneMsg",
+                    "✗ Enter a valid phone number"
+                );
+
+                valid = false;
+            }
+
+
+            // AGE
+
+            let age =
+                Number(ageInput.value);
+
+            if (
+                age < 16 ||
+                age > 100 ||
+                ageInput.value === ""
+            ) {
+
+                showError(
+                    ageInput,
+                    "ageMsg",
+                    "✗ Enter a valid age"
+                );
+
+                valid = false;
+            }
+
+
+            // MEMBERSHIP PLAN
+
+            if (planInput.value === "") {
+
+                showError(
+                    planInput,
+                    "planMsg",
+                    "✗ Select a membership plan"
+                );
+
+                valid = false;
+            }
+
+
+            // DATE
+
+            if (dateInput.value === "") {
+
+                showError(
+                    dateInput,
+                    "dateMsg",
+                    "✗ Select a start date"
+                );
+
+                valid = false;
+            }
+
+
+            // PASSWORD
+
+            if (
+                passwordInput.value.length < 8
+            ) {
+
+                showError(
+                    passwordInput,
+                    "passwordMsg",
+                    "✗ Password must contain at least 8 characters"
+                );
+
+                valid = false;
+            }
+
+
+            // CONFIRM PASSWORD
+
+            if (
+                passwordInput.value !==
+                confirmPasswordInput.value
+            ) {
+
+                showError(
+                    confirmPasswordInput,
+                    "confirmMsg",
+                    "✗ Passwords do not match"
+                );
+
+                valid = false;
+            }
+
+
+            // TERMS
+
+            if (!termsInput.checked) {
+
+                showError(
+                    termsInput,
+                    "termsMsg",
+                    "✗ Please accept the terms"
+                );
+
+                valid = false;
+            }
+
+
+            // FINAL RESULT
+
+            if (valid) {
+
+                alert(
+                    "Registration successful!\n\n" +
+                    "Welcome to AD FITNESS GYM."
+                );
+
+            } else {
+
+                alert(
+                    "Please correct the errors before submitting."
+                );
+
+            }
+
+        }
+    );
+
+
+    // -----------------------------------------------------
+    // SUCCESS FUNCTION
+    // -----------------------------------------------------
+
+    function showSuccess(
+        input,
+        messageId,
+        message
+    ) {
+
+        input.style.borderColor =
+            "#00c853";
+
+        const messageElement =
+            document.getElementById(messageId);
+
+        messageElement.textContent =
+            message;
+
+        messageElement.className =
+            "message success";
+
+    }
+
+
+    // -----------------------------------------------------
+    // ERROR FUNCTION
+    // -----------------------------------------------------
+
+    function showError(
+        input,
+        messageId,
+        message
+    ) {
+
+        input.style.borderColor =
+            "#ff3333";
+
+        const messageElement =
+            document.getElementById(messageId);
+
+        messageElement.textContent =
+            message;
+
+        messageElement.className =
+            "message error";
+
+    }
+
+</script>
+
+</body>
+</html>
