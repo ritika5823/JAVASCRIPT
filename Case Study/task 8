@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Northstar Careers | Job Application</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+		:root {
+			--ink: #302018;
+			--muted: #806c5d;
+			--paper: #f3ebe1;
+			--white: #fffaf4;
+			--line: #dfd0c2;
+			--blue: #70452f;
+			--blue-dark: #4d2d20;
+			--coral: #b66b43;
+			--soft-blue: #ead9c8;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--paper);
+			font-family: 'DM Sans', sans-serif;
+		}
+
+		.page {
+			min-height: 100vh;
+			background: radial-gradient(circle at 92% 5%, #dfc4aa 0, transparent 25%), var(--paper);
+		}
+
+		.topbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 1180px;
+			margin: auto;
+			padding: 28px 32px;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 11px;
+			font-family: 'Space Grotesk', sans-serif;
+			font-size: 20px;
+			font-weight: 700;
+			letter-spacing: .02em;
+		}
+
+		.brand-mark {
+			display: grid;
+			width: 34px;
+			height: 34px;
+			place-items: center;
+			color: var(--white);
+			background: var(--blue);
+			border-radius: 50% 50% 50% 8px;
+			transform: rotate(-8deg);
+		}
+
+		.topbar small { color: var(--muted); font-size: 13px; }
+
+		main {
+			display: grid;
+			grid-template-columns: 285px minmax(0, 1fr);
+			gap: 54px;
+			max-width: 1080px;
+			margin: 30px auto 70px;
+			padding: 0 32px;
+		}
+
+		.intro { padding-top: 22px; }
+
+		.eyebrow {
+			margin: 0 0 17px;
+			color: var(--coral);
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: .16em;
+			text-transform: uppercase;
+		}
+
+		h1, h2 { font-family: 'Space Grotesk', sans-serif; }
+		h1 { margin: 0; font-size: clamp(36px, 5vw, 58px); line-height: .98; letter-spacing: -.04em; }
+		.intro > p:not(.eyebrow) { margin: 24px 0 36px; color: var(--muted); line-height: 1.65; }
+
+		.visual {
+			position: relative;
+			height: 215px;
+			margin-top: 30px;
+			overflow: hidden;
+			background: var(--blue);
+			border-radius: 2px 38px 2px 2px;
+			box-shadow: 14px 14px 0 #d8bda6;
+		}
+		.visual::before {
+			position: absolute;
+			inset: 0;
+			content: '';
+			background: linear-gradient(135deg, rgba(67, 35, 22, .78), rgba(112, 69, 47, .12)), url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=700&q=80') center / cover;
+			mix-blend-mode: multiply;
+		}
+		.visual-caption {
+			position: absolute;
+			left: 20px;
+			bottom: 18px;
+			max-width: 170px;
+			color: var(--white);
+			font-family: 'Space Grotesk', sans-serif;
+			font-size: 17px;
+			font-weight: 700;
+			line-height: 1.1;
+		}
+		.visual-caption::before { display: block; width: 28px; height: 3px; margin-bottom: 10px; content: ''; background: #e3a06f; }
+
+		.note {
+			padding: 18px;
+			color: var(--blue-dark);
+			background: var(--soft-blue);
+			border-left: 4px solid var(--coral);
+			font-size: 14px;
+			line-height: 1.55;
+		}
+
+		.form-shell {
+			overflow: hidden;
+			background: var(--white);
+			border: 1px solid #e6e2d9;
+			box-shadow: 0 18px 50px rgba(29, 47, 60, .08);
+		}
+
+		form { padding: 34px; }
+		fieldset { margin: 0; padding: 0 0 30px; border: 0; border-bottom: 1px solid var(--line); }
+		fieldset + fieldset { padding-top: 30px; }
+		fieldset:last-of-type { border-bottom: 0; padding-bottom: 6px; }
+		legend { margin-bottom: 22px; font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 700; }
+		.section-number { margin-right: 10px; color: var(--coral); font-size: 13px; }
+
+		.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 19px 16px; }
+		.full { grid-column: 1 / -1; }
+		.field { display: flex; flex-direction: column; gap: 7px; }
+		label { color: var(--ink); font-size: 13px; font-weight: 700; }
+		.optional { color: var(--muted); font-weight: 400; }
+		input, select, textarea {
+			width: 100%;
+			padding: 12px 13px;
+			color: var(--ink);
+			background: #fcfcfb;
+			border: 1px solid #cfd6da;
+			border-radius: 3px;
+			font: inherit;
+			font-size: 14px;
+			outline: none;
+			transition: border-color .2s, box-shadow .2s;
+		}
+		textarea { min-height: 98px; resize: vertical; }
+		input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(23, 105, 170, .13); }
+		input[type="file"] { padding: 9px; }
+		.help { margin: 0; color: var(--muted); font-size: 11px; }
+
+		.choice-row { display: flex; flex-wrap: wrap; gap: 10px; }
+		.choice { display: flex; align-items: center; gap: 7px; padding: 10px 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 3px; font-size: 13px; font-weight: 500; cursor: pointer; }
+		.choice:has(input:checked) { color: var(--blue-dark); background: var(--soft-blue); border-color: var(--blue); }
+		.choice input { width: auto; accent-color: var(--blue); }
+
+		.consent { display: flex; align-items: flex-start; gap: 9px; margin-top: 16px; color: var(--muted); font-size: 12px; font-weight: 400; line-height: 1.5; }
+		.consent input { width: auto; margin-top: 2px; accent-color: var(--blue); }
+		.actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 30px -34px -34px; padding: 21px 34px; background: #f1e4d7; }
+		.actions p { margin: 0; color: var(--muted); font-size: 11px; }
+		button { padding: 13px 22px; color: var(--white); background: var(--blue); border: 0; border-radius: 3px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+		button:hover { background: var(--blue-dark); }
+		#status { min-height: 18px; margin: 16px 0 0; color: #22734b; font-size: 13px; font-weight: 700; }
+
+		@media (max-width: 800px) {
+			main { grid-template-columns: 1fr; gap: 28px; margin-top: 10px; }
+			.intro { padding-top: 0; }
+			.intro > p:not(.eyebrow) { margin-bottom: 20px; }
+			.visual { max-width: 340px; height: 180px; margin-top: 24px; }
+		}
+		@media (max-width: 560px) {
+			.topbar { padding: 20px; }
+			.topbar small { display: none; }
+			main { padding: 0 17px; margin-bottom: 35px; }
+			form { padding: 23px 19px; }
+			.grid { grid-template-columns: 1fr; }
+			.full { grid-column: auto; }
+			.actions { align-items: stretch; flex-direction: column; margin: 26px -19px -23px; padding: 18px 19px; }
+			button { width: 100%; }
+		}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div class="brand"><span class="brand-mark">N</span> NORTHSTAR</div>
+			<small>People first. Progress always.</small>
+		</header>
+
+		<main>
+			<section class="intro">
+				<p class="eyebrow">Join the team</p>
+				<h1>Make work<br>worth doing.</h1>
+				<p>Tell us what you bring, what you care about, and where you want to go next.</p>
+				<div class="visual" role="img" aria-label="A collaborative team working together in a bright office">
+					<div class="visual-caption">Bring your best work to the table.</div>
+				</div>
+				<div class="note"><strong>A thoughtful application takes about 8 minutes.</strong><br>Have your resume and portfolio links nearby.</div>
+			</section>
+
+			<section class="form-shell">
+				<form id="applicationForm">
+					<fieldset>
+						<legend><span class="section-number">01</span>Personal information</legend>
+						<div class="grid">
+							<div class="field"><label for="firstName">First name *</label><input id="firstName" name="firstName" required type="text" autocomplete="given-name" placeholder="Alex"></div>
+							<div class="field"><label for="lastName">Last name *</label><input id="lastName" name="lastName" required type="text" autocomplete="family-name" placeholder="Morgan"></div>
+							<div class="field"><label for="email">Email address *</label><input id="email" name="email" required type="email" autocomplete="email" placeholder="alex@example.com"></div>
+							<div class="field"><label for="phone">Phone number <span class="optional">(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000"></div>
+							<div class="field full"><label for="location">Current city and country *</label><input id="location" name="location" required type="text" autocomplete="address-level2" placeholder="Toronto, Canada"></div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend><span class="section-number">02</span>Role &amp; experience</legend>
+						<div class="grid">
+							<div class="field"><label for="role">Role you are applying for *</label><select id="role" name="role" required><option value="">Select a role</option><option>Product Designer</option><option>Software Engineer</option><option>Marketing Specialist</option><option>Customer Success Manager</option><option>Open application</option></select></div>
+							<div class="field"><label for="experience">Years of experience *</label><select id="experience" name="experience" required><option value="">Select experience</option><option>0-1 years</option><option>2-4 years</option><option>5-8 years</option><option>9+ years</option></select></div>
+							<div class="field full"><label for="resume">Resume / CV *</label><input id="resume" name="resume" required type="file" accept=".pdf,.doc,.docx"><p class="help">PDF, DOC, or DOCX. Maximum file size: 10 MB.</p></div>
+							<div class="field"><label for="portfolio">Portfolio or LinkedIn <span class="optional">(optional)</span></label><input id="portfolio" name="portfolio" type="url" placeholder="https://"></div>
+							<div class="field"><label for="startDate">Earliest start date *</label><input id="startDate" name="startDate" required type="date"></div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend><span class="section-number">03</span>Education &amp; skills</legend>
+						<div class="grid">
+							<div class="field"><label for="education">Highest education *</label><select id="education" name="education" required><option value="">Select qualification</option><option>High school</option><option>Diploma / certificate</option><option>Bachelor's degree</option><option>Master's degree</option><option>Doctorate</option><option>Other</option></select></div>
+							<div class="field"><label for="institution">Institution / field of study</label><input id="institution" name="institution" type="text" placeholder="University or program"></div>
+							<div class="field full"><label for="skills">Technical skills *</label><input id="skills" name="skills" required type="text" placeholder="e.g. JavaScript, Figma, SQL, Python"><p class="help">Separate skills with commas.</p></div>
+							<div class="field full"><label for="motivation">Why Northstar? *</label><textarea id="motivation" name="motivation" required placeholder="What makes this role and our team a good fit for you?"></textarea></div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<legend><span class="section-number">04</span>Additional details</legend>
+						<div class="field"><label>Work preference *</label><div class="choice-row"><label class="choice"><input required type="radio" name="workPreference" value="Remote"> Remote</label><label class="choice"><input type="radio" name="workPreference" value="Hybrid"> Hybrid</label><label class="choice"><input type="radio" name="workPreference" value="Office"> In office</label></div></div>
+						<label class="consent"><input required type="checkbox" name="consent"> I confirm that the information in this application is accurate and I consent to Northstar using it for recruitment purposes. *</label>
+					</fieldset>
+
+					<div class="actions"><p>* Required fields</p><button type="submit">Submit application &rarr;</button></div>
+					<p id="status" role="status" aria-live="polite"></p>
+				</form>
+			</section>
+		</main>
+	</div>
+	<script>
+		document.getElementById('applicationForm').addEventListener('submit', function (event) {
+			event.preventDefault();
+			if (!this.checkValidity()) {
+				this.reportValidity();
+				return;
+			}
+			document.getElementById('status').textContent = 'Application received. Thank you for sharing your story.';
+			this.reset();
+		});
+	</script>
+</body>
+</html>
